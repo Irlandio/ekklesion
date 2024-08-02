@@ -1,21 +1,21 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('Nenhum acesso direto ao script é permitido');
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
 | -------------------------------------------------------------------------
-| This file lets you re-map URI requests to specific controller functions.
+| Este arquivo permite remapear solicitações de URI para funções específicas do controlador.
 |
-| Typically there is a one-to-one relationship between a URL string
-| and its corresponding controller class/method. The segments in a
-| URL normally follow this pattern:
+| Normalmente, há um relacionamento um-para-um entre uma string de URL
+| e sua classe/método de controlador correspondente. Os segmentos em um
+| URL normalmente segue este padrão:
 |
-|	example.com/class/method/id/
+|	exemplo.com/class/method/id/
 |
-| In some instances, however, you may want to remap this relationship
-| so that a different class/function is called than the one
-| corresponding to the URL.
+| Em alguns casos, entretanto, você pode querer remapear esse relacionamento
+| para que uma classe/função diferente seja chamada daquela
+| correspondente ao URL.
 |
-| Please see the user guide for complete details:
+| Consulte o guia do usuário para obter detalhes completos:
 |
 |	http://codeigniter.com/user_guide/general/routing.html
 |
@@ -27,14 +27,14 @@
 |
 |	$route['default_controller'] = 'welcome';
 |
-| This route indicates which controller class should be loaded if the
-| URI contains no data. In the above example, the "welcome" class
-| would be loaded.
+| Esta rota indica qual classe de controlador deve ser carregada se o
+| URI não contém dados. No exemplo acima, a classe “welcome”
+| estaria carregado.
 |
-|	$route['404_override'] = 'errors/page_missing';
+|	$route['404_override'] = 'erros/page_missing';
 |
-| This route will tell the Router what URI segments to use if those provided
-| in the URL cannot be matched to a valid route.
+| Esta rota informará ao roteador quais segmentos de URI usar se aqueles fornecidos
+| no URL não pode corresponder a uma rota válida.
 |
 */
 

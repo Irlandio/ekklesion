@@ -2,29 +2,29 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP
+ * Uma estrutura de desenvolvimento de aplicativos de código aberto para PHP
  *
- * This content is released under the MIT License (MIT)
+ *Este conteúdo é lançado sob a licença MIT (MIT)
  *
- * Copyright (c) 2014 - 2017, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2017, Instituto de Tecnologia da Colúmbia Britânica
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * A permissão é concedida gratuitamente a qualquer pessoa que obtenha uma cópia
+ * deste software e arquivos de documentação associados (o "Software"), para lidar
+ * no Software sem restrições, incluindo, sem limitação, os direitos
+ * usar, copiar, modificar, mesclar, publicar, distribuir, sublicenciar e/ou vender
+ * cópias do Software, e para permitir que as pessoas a quem o Software é
+ * mobilado para tal, sujeito às seguintes condições:
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ * O aviso de direitos autorais acima e este aviso de permissão devem ser incluídos em
+ * todas as cópias ou partes substanciais do Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * O SOFTWARE É FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIA DE QUALQUER TIPO, EXPRESSA OU
+ * IMPLÍCITA, INCLUINDO, MAS NÃO SE LIMITANDO ÀS GARANTIAS DE COMERCIALIZAÇÃO,
+ * ADEQUAÇÃO A UM DETERMINADO FIM E NÃO VIOLAÇÃO. EM HIPÓTESE ALGUMA O
+ * OS AUTORES OU DETENTORES DE DIREITOS AUTORAIS SERÃO RESPONSÁVEIS POR QUALQUER RECLAMAÇÃO, DANOS OU OUTROS
+ * RESPONSABILIDADE, SEJA EM UMA AÇÃO DE CONTRATO, ATO ILÍCITO OU DE OUTRA FORMA, DECORRENTE DE,
+ * FORA DE OU EM CONEXÃO COM O SOFTWARE OU O USO OU OUTRAS NEGOCIAÇÕES EM
+ * O SOFTWARE.
  *
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
@@ -35,7 +35,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('Nenhum acesso direto ao script é permitido');
 
 /**
  * Router Class
@@ -79,33 +79,33 @@ class CI_Router {
 	public $method =	'index';
 
 	/**
-	 * Sub-directory that contains the requested controller class
+	 * Subdiretório que contém a classe do controlador solicitada
 	 *
 	 * @var	string
 	 */
 	public $directory;
 
 	/**
-	 * Default controller (and method if specific)
+	 * Controlador padrão (e método, se específico)
 	 *
 	 * @var	string
 	 */
 	public $default_controller;
 
 	/**
-	 * Translate URI dashes
+	 * Traduzir traços de URI
 	 *
-	 * Determines whether dashes in controller & method segments
-	 * should be automatically replaced by underscores.
+	 * Determina se há traços nos segmentos de controlador e método
+	 * deve ser substituído automaticamente por sublinhados.
 	 *
 	 * @var	bool
 	 */
 	public $translate_uri_dashes = FALSE;
 
 	/**
-	 * Enable query strings flag
+	 * Habilitar sinalizador de strings de consulta
 	 *
-	 * Determines whether to use GET parameters or segment URIs
+	 * Determina se deve usar parâmetros GET ou URIs de segmento
 	 *
 	 * @var	bool
 	 */
@@ -114,9 +114,9 @@ class CI_Router {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Class constructor
+	 * Construtor de classe
 	 *
-	 * Runs the route mapping function.
+	 * Executa a função de mapeamento de rotas.
 	 *
 	 * @param	array	$routing
 	 * @return	void
@@ -128,35 +128,35 @@ class CI_Router {
 
 		$this->enable_query_strings = ( ! is_cli() && $this->config->item('enable_query_strings') === TRUE);
 
-		// If a directory override is configured, it has to be set before any dynamic routing logic
+		// Se uma substituição de diretório estiver configurada, ela deverá ser definida antes de qualquer lógica de roteamento dinâmico
 		is_array($routing) && isset($routing['directory']) && $this->set_directory($routing['directory']);
 		$this->_set_routing();
 
-		// Set any routing overrides that may exist in the main index file
+		// Defina quaisquer substituições de roteamento que possam existir no arquivo de índice principal
 		if (is_array($routing))
 		{
 			empty($routing['controller']) OR $this->set_class($routing['controller']);
 			empty($routing['function'])   OR $this->set_method($routing['function']);
 		}
 
-		log_message('info', 'Router Class Initialized');
+		log_message('info', 'Classe de roteador inicializada');
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Set route mapping
+	 * Definir mapeamento de rota
 	 *
-	 * Determines what should be served based on the URI request,
-	 * as well as any "routes" that have been set in the routing config file.
+	 * Determina o que deve ser servido com base na solicitação de URI,
+	 * bem como quaisquer "rotas" que tenham sido definidas no arquivo de configuração de roteamento.
 	 *
 	 * @return	void
 	 */
 	protected function _set_routing()
 	{
-		// Load the routes.php file. It would be great if we could
-		// skip this for enable_query_strings = TRUE, but then
-		// default_controller would be empty ...
+		// Carregue o arquivo rotas.php. Seria ótimo se pudéssemos
+		// pule isso para enable_query_strings = TRUE, mas então
+		// default_controller estaria vazio ...
 		if (file_exists(APPPATH.'config/routes.php'))
 		{
 			include(APPPATH.'config/routes.php');
@@ -176,12 +176,12 @@ class CI_Router {
 			$this->routes = $route;
 		}
 
-		// Are query strings enabled in the config file? Normally CI doesn't utilize query strings
-		// since URI segments are more search-engine friendly, but they can optionally be used.
-		// If this feature is enabled, we will gather the directory/class/method a little differently
+		// As strings de consulta estão habilitadas no arquivo de configuração? Normalmente o CI não utiliza strings de consulta
+		// já que os segmentos de URI são mais amigáveis ​​aos mecanismos de pesquisa, mas podem ser usados ​​opcionalmente.
+		// Se este recurso estiver habilitado, iremos reunir o diretório/classe/método de uma forma um pouco diferente
 		if ($this->enable_query_strings)
 		{
-			// If the directory is set at this time, it means an override exists, so skip the checks
+			// Se o diretório estiver definido neste momento, significa que existe uma substituição, então pule as verificações
 			if ( ! isset($this->directory))
 			{
 				$_d = $this->config->item('directory_trigger');
@@ -217,8 +217,8 @@ class CI_Router {
 				$this->_set_default_controller();
 			}
 
-			// Routing rules don't apply to query strings and we don't need to detect
-			// directories, so we're done here
+			// As regras de roteamento não se aplicam a strings de consulta e não precisamos detectar
+			//diretórios, então terminamos aqui
 			return;
 		}
 
@@ -236,10 +236,10 @@ class CI_Router {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Set request route
+	 * Definir rota de solicitação
 	 *
-	 * Takes an array of URI segments as input and sets the class/method
-	 * to be called.
+	 * Pega um array de segmentos de URI como entrada e define a classe/método
+	 * ser chamado.
 	 *
 	 * @used-by	CI_Router::_parse_routes()
 	 * @param	array	$segments	URI segments
@@ -291,10 +291,10 @@ class CI_Router {
 	{
 		if (empty($this->default_controller))
 		{
-			show_error('Unable to determine what should be displayed. A default route has not been specified in the routing file.');
+			show_error('Não é possível determinar o que deve ser exibido. Uma rota padrão não foi especificada no arquivo de roteamento.');
 		}
 
-		// Is the method being specified?
+		// O método está sendo especificado?
 		if (sscanf($this->default_controller, '%[^/]/%s', $class, $method) !== 2)
 		{
 			$method = 'index';
@@ -309,13 +309,13 @@ class CI_Router {
 		$this->set_class($class);
 		$this->set_method($method);
 
-		// Assign routed segments, index starting from 1
+		// Atribuir segmentos roteados, índice começando em 1
 		$this->uri->rsegments = array(
 			1 => $class,
 			2 => $method
 		);
 
-		log_message('debug', 'No URI present. Default controller set.');
+		log_message('debug', 'Nenhum URI presente. Conjunto de controlador padrão.');
 	}
 
 	// --------------------------------------------------------------------
@@ -323,7 +323,7 @@ class CI_Router {
 	/**
 	 * Validate request
 	 *
-	 * Attempts validate the URI request and determine the controller path.
+	 * As tentativas validam a solicitação de URI e determinam o caminho do controlador.
 	 *
 	 * @used-by	CI_Router::_set_request()
 	 * @param	array	$segments	URI segments
@@ -334,8 +334,8 @@ class CI_Router {
 		$c = count($segments);
 		$directory_override = isset($this->directory);
 
-		// Loop through our segments and return as soon as a controller
-		// is found or when such a directory doesn't exist
+		// Percorra nossos segmentos e retorne assim que um controlador
+		// é encontrado ou quando tal diretório não existe
 		while ($c-- > 0)
 		{
 			$test = $this->directory
@@ -353,17 +353,17 @@ class CI_Router {
 			return $segments;
 		}
 
-		// This means that all segments were actually directories
+		// Isso significa que todos os segmentos eram na verdade diretórios
 		return $segments;
 	}
 
 	// --------------------------------------------------------------------
 
 	/**
-	 * Parse Routes
+	 * Analisar rotas
 	 *
-	 * Matches any routes that may exist in the config/routes.php file
-	 * against the URI to determine if the class/method need to be remapped.
+	 * Corresponde a quaisquer rotas que possam existir no arquivo config/routes.php
+	 * contra o URI para determinar se a classe/método precisa ser remapeada.
 	 *
 	 * @return	void
 	 */

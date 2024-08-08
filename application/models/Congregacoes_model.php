@@ -1,5 +1,5 @@
 <?php
-class Congreg_model extends CI_Model {
+class Congregacoes_model extends CI_Model {
 
     /**
      * author:  Irlândio Oliveira 

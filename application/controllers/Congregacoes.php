@@ -1,6 +1,6 @@
 <?php
 
-class Congreg extends CI_Controller {
+class Congregacoes extends CI_Controller {
     
     /**
      * author:  Irlândio Oliveira 

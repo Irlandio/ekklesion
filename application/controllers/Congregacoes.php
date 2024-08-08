@@ -15,7 +15,7 @@ class Congregacoes extends CI_Controller {
         }
 
         $this->load->helper(array('form', 'codegen_helper'));
-        $this->load->model('congreg_model', '', TRUE);
+        $this->load->model('congregacoes_model', '', TRUE);
         $this->data['menuCongreg'] = 'Cogregações';
     }
 
@@ -62,7 +62,7 @@ class Congregacoes extends CI_Controller {
         
         
         $config['base_url'] = base_url().'index.php/congreg/gerenciar/';
-        $config['total_rows'] = $this->congreg_model->count('combustivel');
+        $config['total_rows'] = $this->congregacoes_model->count('combustivel');
         $config['per_page'] = 10;
         $config['next_link'] = 'Próxima';
         $config['prev_link'] = 'Anterior';
@@ -94,8 +94,8 @@ class Congregacoes extends CI_Controller {
                     case 8:	$contN      = "BR0579";             break;  
                     case 99:$contN      = 99;                   break; 	
                 } 
-        $this->data['results'] = $this->congreg_model->get('combustivel','*',0,$contN,$where_array,$config['per_page'],$this->uri->segment(3));
-        $periodos = $this->congreg_model->get('combustivel','*',1,$contN,$where_array,$config['per_page'],$this->uri->segment(3));
+        $this->data['results'] = $this->congregacoes_model->get('combustivel','*',0,$contN,$where_array,$config['per_page'],$this->uri->segment(3));
+        $periodos = $this->congregacoes_model->get('combustivel','*',1,$contN,$where_array,$config['per_page'],$this->uri->segment(3));
         $mensal = $semanal = array();
         $mesAnterior = date('Y-m');
         $mesAnterior = $semanaAnterior = '55';
@@ -161,8 +161,8 @@ class Congregacoes extends CI_Controller {
         // die();
 
 	    
-        $this->data['contas'] = $this->congreg_model->get2('caixas');
-	    $this->data['beneficiarios'] = $this->congreg_model->getBeneficiarios('clientes',$contN);
+        $this->data['contas'] = $this->congregacoes_model->get2('caixas');
+	    $this->data['beneficiarios'] = $this->congregacoes_model->getBeneficiarios('clientes',$contN);
        
 	    $this->data['view'] = 'produtos/produtos';
        	$this->load->view('tema/topo',$this->data);
@@ -200,14 +200,14 @@ class Congregacoes extends CI_Controller {
                 'veiculo' => set_value('veiculo')
             );
 
-            if ($this->congreg_model->add('combustivel', $data) == TRUE) {
+            if ($this->congregacoes_model->add('combustivel', $data) == TRUE) {
                 $this->session->set_flashdata('success','Abastecimento adicionado com sucesso!');
                 redirect(base_url() . 'index.php/produtos/adicionar/');
             } else {
                 $this->data['custom_error'] = '<div class="form_error"><p>An Error Occured.</p></div>';
             }
         }
-        $this->data['postos'] = $this->congreg_model->get2('postos');
+        $this->data['postos'] = $this->congregacoes_model->get2('postos');
 
         $this->data['view'] = 'produtos/adicionarProduto';
         $this->load->view('tema/topo', $this->data);
@@ -230,21 +230,21 @@ class Congregacoes extends CI_Controller {
         if ($this->form_validation->run('produtos') == false) {
             $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">' . validation_errors() . '</div>' : false);
         } else {
-            $result = $this->congreg_model->getById('clientes','documento',$this->input->post('benef'));          
+            $result = $this->congregacoes_model->getById('clientes','documento',$this->input->post('benef'));          
             $data = array(
                 'nome_beneficiario' => $result->nomeCliente,
                 'n_beneficiario'    => $result->documento,
                 'n_protocolo'       => $this->input->post('protocolo')   
             );
             
-            if ($this->congreg_model->edit('presentes_especiais', $data, 'id_presente', $this->input->post('id_presente')) == TRUE) {
+            if ($this->congregacoes_model->edit('presentes_especiais', $data, 'id_presente', $this->input->post('id_presente')) == TRUE) {
                 $this->session->set_flashdata('success','Presente editado com sucesso!');
                 redirect(base_url() . 'index.php/produtos/editar/'.$this->input->post('idProdutos'));
             } else {
                 $this->data['custom_error'] = '<div class="form_error"><p>Um Erro ocorreu!</p></div>';
             }
         }
-        $result = $this->congreg_model->getById('presentes_especiais','id_presente',$this->uri->segment(3));
+        $result = $this->congregacoes_model->getById('presentes_especiais','id_presente',$this->uri->segment(3));
         $contBR = substr($result->n_beneficiario,-11,6); 
              switch ($contBR) 
                     {	        
@@ -255,8 +255,8 @@ class Congregacoes extends CI_Controller {
                         case "BR0579":	$contN     = 8; break;  
                     } 
         $this->data['contBR'] = $contBR;
-        $this->data['result'] = $this->congreg_model->getById('presentes_especiais','id_presente',$this->uri->segment(3));
-	    $this->data['beneficiarios'] = $this->congreg_model->getBeneficiarios('clientes',$contN);
+        $this->data['result'] = $this->congregacoes_model->getById('presentes_especiais','id_presente',$this->uri->segment(3));
+	    $this->data['beneficiarios'] = $this->congregacoes_model->getBeneficiarios('clientes',$contN);
 
         $this->data['view'] = 'produtos/editarProduto';
         $this->load->view('tema/topo', $this->data);     
@@ -274,15 +274,15 @@ class Congregacoes extends CI_Controller {
            redirect(base_url());
         }
 
-        $result = $this->congreg_model->getById('presentes_especiais','id_presente',$this->uri->segment(3));
-        $resultProtocolo = $this->congreg_model->getByIds('presentes_especiais','n_protocolo',$result->n_protocolo);
+        $result = $this->congregacoes_model->getById('presentes_especiais','id_presente',$this->uri->segment(3));
+        $resultProtocolo = $this->congregacoes_model->getByIds('presentes_especiais','n_protocolo',$result->n_protocolo);
     //    $qtd = array_count_values($resultProtocolo);
         $qt =0;
         foreach ($resultProtocolo as $r) 
             {  $qt++;
                 $var='resultFin'.$qt;
-            //    $this->data['resultFin'] = $this->congreg_model->getById('aenpfin','id_fin',$r->id_saida);
-                $this->data[$var] = $this->congreg_model->getById('aenpfin','id_fin',$r->id_saida);
+            //    $this->data['resultFin'] = $this->congregacoes_model->getById('aenpfin','id_fin',$r->id_saida);
+                $this->data[$var] = $this->congregacoes_model->getById('aenpfin','id_fin',$r->id_saida);
         //       var_dump($$var); echo $var;
             }
      //   exit;
@@ -322,7 +322,7 @@ class Congregacoes extends CI_Controller {
         $this->db->where('produtos_id', $id);
         $this->db->delete('itens_de_vendas');
         
-        $this->congreg_model->delete('produtos','idProdutos',$id);             
+        $this->congregacoes_model->delete('produtos','idProdutos',$id);             
         
 
         $this->session->set_flashdata('success','Produto excluido com sucesso!');            
